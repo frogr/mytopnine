@@ -96,7 +96,7 @@ app.get('/profile/:id', (req, res) => {
   User.findOne({_id: id}, (err, user) => {
     if (err) return res.send(err);
     console.log(user);
-    res.render('profile', {user});
+    res.render('otherProfile', {user});
   });
 });
 
