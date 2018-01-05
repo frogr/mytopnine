@@ -34,3 +34,6 @@ main, header{
   padding: 0 10px;
   color: #333;
 }
+.loggedInContainer {
+  float:right;
+}
