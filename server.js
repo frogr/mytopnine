@@ -58,11 +58,22 @@ app.use(passport.session());
 app.use('/auth', authRoutes);
 app.use('/profile', profileRoutes);
 
+
 // create home route
 app.get('/', async (req, res) => {
-  const user = req.user;
-  const users = await User.find({}).exec();
-  res.render('home', { user, users});
+  try {
+    const user = req.user;
+    let users = [];
+    if(user) {
+      users = await User.find({_id:{$ne:user._id} }).exec();
+    } else {
+      users = await User.find({}).exec();      
+    }
+    res.render('home', { user, users });
+  } catch (e) {
+    console.log(e);
+    res.status(422).send({ error: e });
+  }
 });
 
 
