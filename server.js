@@ -67,7 +67,7 @@ app.get('/', async (req, res) => {
     if(user) {
       users = await User.find({_id:{$ne:user._id} }).exec();
     } else {
-      users = await User.find({}).exec();      
+      users = await User.find({}).exec();
     }
     res.render('home', { user, users });
   } catch (e) {
@@ -104,10 +104,11 @@ app.get('/users', (req, res) => {
 // route to get the friends array of an individual user
 app.get('/profile/:id', (req, res) => {
   const { id } = req.params;
+  const currentUser = req.user;
   User.findOne({_id: id}, (err, user) => {
     if (err) return res.send(err);
     console.log(user);
-    res.render('otherProfile', {user});
+    res.render('otherProfile', {user, currentUser});
   });
 });
 
